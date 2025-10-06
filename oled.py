@@ -322,6 +322,7 @@ class OLEDFace:
                 display.fill(0)
                 display.show()
 
+
 def oled_process(face_command_queue: Queue, shutdown_event: Event):
     """OLED Face animation process with random expressions"""
     logger.info("OLED Face process started")
