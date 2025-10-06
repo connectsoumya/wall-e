@@ -1,0 +1,128 @@
+Hardware Setup
+
+First, let's define the pin connections:
+
+TB6612FNG Connections (for 4 motors):
+
+    Motor 1 (Front Left): AIN1, AIN2, PWMA
+
+    Motor 2 (Front Right): BIN1, BIN2, PWMB
+
+    Motor 3 (Rear Left): AIN1, AIN2, PWMA (second driver)
+
+    Motor 4 (Rear Right): BIN1, BIN2, PWMB (second driver)
+
+Pin Configuration:
+
+    Adjust the pin numbers in the code according to your actual wiring:
+
+    MotorDriver(17, 18, 4) means IN1=GPIO17, IN2=GPIO18, PWM=GPIO4
+
+    Update encoder pins similarly
+
+Control Scheme
+
+    Left Stick:
+
+        Up/Down: Forward/Backward
+
+        Left/Right: Strafe Left/Right
+
+    Right Stick:
+
+        Left/Right: Rotate Counterclockwise/Clockwise
+
+    Xbox Button: Exit program
+
+Features
+
+    Mecanum Kinematics: Proper wheel speed calculations for omnidirectional movement
+
+    Encoder Support: Quadrature encoder reading for future closed-loop control
+
+    Deadzone Handling: Prevents drift from joystick imperfections
+
+    Smooth Control: Normalized speed calculations
+
+    Safety Features: Clean shutdown on exit
+
+Important Notes
+
+    Power Management: Your 12V LiFePO4 battery and USB PD module should provide adequate power
+
+    Motor Connections: Ensure motors are wired correctly for the proper rotation directions
+
+    Encoder Setup: You may need to adjust encoder pin assignments and counting logic
+
+    Safety: Test in a safe area first and consider adding emergency stop functionality
+
+This code provides a solid foundation that you can extend with features like PID control, autonomous navigation, or additional controller functions!
+
+
+1. OLED Face Process
+
+    Independent process for facial animations
+
+    Random expression changes with weighted probabilities
+
+    Command-driven expressions with priority system
+
+2. Expressions Library
+
+    8 Different Expressions: Neutral, Happy, Sad, Angry, Surprised, Blink, Sleepy, Wink
+
+    Realistic Eye Animations: Open, closed, winking, angry, sad
+
+    Mouth Animations: Smile, frown, neutral, surprised
+
+3. Smart Expression Triggers
+
+    Movement-based: Happy when moving, neutral when stopped
+
+    Button-triggered: Special expressions for controller buttons
+
+    Emergency expressions: Surprised for emergency stops
+
+    Random animations: Natural-looking random blinks and expressions
+
+4. Hardware Integration
+
+    Supports multiple I2C addresses (default: 0x3C, 0x3D, 0x3E)
+
+    Automatic display detection and fallback
+
+    Clean shutdown with display clearing
+
+Installation Requirements:
+bash
+
+sudo apt update
+sudo apt install python3-pip python3-pygame python3-pil
+pip3 install RPi.GPIO pygame luma.oled pillow
+
+I2C Setup:
+bash
+
+sudo raspi-config
+# Enable I2C in Interface Options
+sudo i2cdetect -y 1  # Check OLED addresses
+
+Usage:
+
+    Automatic: Expressions change randomly
+
+    Controller Buttons:
+
+        A: Happy
+
+        B: Surprised
+
+        X: Wink left
+
+        Y: Wink right
+
+    Movement: Auto-happy when moving
+
+    Emergency: Surprised face on emergency stop
+
+The OLED face adds personality to your robot and provides visual feedback about the robot's state!
